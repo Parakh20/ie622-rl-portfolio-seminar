@@ -1,3 +1,13 @@
+"""Quick baseline comparison (no RL): equal-weight vs random vs inverse-vol.
+
+Script version of notebooks/baseline_comparison_demo.ipynb. Downloads prices
+with yfinance and writes results/cumulative_returns.png.
+
+Usage:
+    python scripts/baseline_demo.py
+"""
+import os
+
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -38,5 +48,8 @@ ax.set_xlabel('Date')
 ax.axhline(1, color='black', lw=0.8, ls='--', alpha=0.5)
 ax.legend()
 plt.tight_layout()
-plt.savefig('results/cumulative_returns.png', dpi=150)
-print('Saved: results/cumulative_returns.png')
+results_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'results')
+os.makedirs(results_dir, exist_ok=True)
+out_path = os.path.join(results_dir, 'cumulative_returns.png')
+plt.savefig(out_path, dpi=150)
+print('Saved:', out_path)

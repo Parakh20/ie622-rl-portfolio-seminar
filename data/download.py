@@ -40,8 +40,14 @@ def download_ticker(ticker: str, start: str = "2016-01-01", end: str | None = No
 
 
 def load_close(ticker: str, start: str, end: str) -> pd.Series:
-    """Return the cached daily Close series for `ticker`, sliced to [start, end]."""
-    df = download_ticker(ticker, start=start)
+    """Return the cached daily Close series for `ticker`, sliced to [start, end].
+
+    Always fetches/caches the full history (from download_ticker's default
+    start) so the cache is valid for every period. Requesting from `start`
+    would cache only that window, and a later call for an earlier period
+    (e.g. training after a backtest) would silently get no data.
+    """
+    df = download_ticker(ticker)
     close = df["Close"].astype(float)
     close.index = pd.to_datetime(close.index)
     return close.loc[start:end]

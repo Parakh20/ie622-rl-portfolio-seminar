@@ -96,7 +96,7 @@ Trained models are not committed; `results/models/` is created by
 
 **Data.** Prices are downloaded from Yahoo Finance via `yfinance` on first use
 and cached as CSV in `data/raw/` (gitignored). To pre-fetch the whole universe:
-`python data/download.py` (or `--tickers AAPL MSFT ...`). Because Yahoo data can
+`python data/download.py` (or `--tickers AAPL MSFT ...`; add `--force` to refresh). Because Yahoo data can
 be revised, re-downloaded prices may differ slightly from those used for the
 numbers below.
 
@@ -123,12 +123,12 @@ docs/          detailed project notes (design decisions, audit, tuning history)
 
 ## Tests
 
-`pytest` runs 26 smoke tests in about 10 seconds using synthetic price series,
+`pytest` runs 27 smoke tests in about 10 seconds using synthetic price series,
 so no network access or trained models are needed. They cover environment
 observation/action shapes, reward bookkeeping and episode termination, feature
 bounds, baseline weights (long-only, summing to 1), metric sanity values, and
 that the RecurrentPPO agent builds with the documented hyperparameters and
-produces a valid action. CI runs the suite on Python 3.11 for every push and
+produces a valid action, plus the price-cache slicing. CI runs the suite on Python 3.11 for every push and
 pull request.
 
 ## Results

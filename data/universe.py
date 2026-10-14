@@ -23,3 +23,5 @@ CRYPTO_PERIOD = {
     "train_start": "2020-01-01", "train_end": "2022-06-30",
     "test_start": "2022-07-01", "test_end": "2023-12-31",
 }
+
+PERIODS = {"A": PERIOD_A, "B": PERIOD_B, "crypto": CRYPTO_PERIOD}

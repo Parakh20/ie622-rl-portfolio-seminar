@@ -10,23 +10,14 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import pandas as pd
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
 from agents.recurrent_ppo import DEFAULT_TOTAL_TIMESTEPS, EntCoefDecayCallback, build_agent
-from data.download import download_ticker
-from data.universe import CRYPTO_PERIOD, PERIOD_A, PERIOD_B
+from data.download import load_close
+from data.universe import PERIODS
 from envs.portfolio_env import PortfolioEnv
 
-PERIODS = {"A": PERIOD_A, "B": PERIOD_B, "crypto": CRYPTO_PERIOD}
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
-
-
-def load_close(ticker: str, start: str, end: str) -> pd.Series:
-    df = download_ticker(ticker, start=start)
-    close = df["Close"].astype(float)
-    close.index = pd.to_datetime(close.index)
-    return close.loc[start:end]
 
 
 def main():

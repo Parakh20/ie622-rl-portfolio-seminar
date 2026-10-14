@@ -39,6 +39,14 @@ def download_ticker(ticker: str, start: str = "2016-01-01", end: str | None = No
     return df
 
 
+def load_close(ticker: str, start: str, end: str) -> pd.Series:
+    """Return the cached daily Close series for `ticker`, sliced to [start, end]."""
+    df = download_ticker(ticker, start=start)
+    close = df["Close"].astype(float)
+    close.index = pd.to_datetime(close.index)
+    return close.loc[start:end]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tickers", nargs="+", default=ALL_ASSETS)

@@ -26,10 +26,10 @@ from baselines.baselines import (
     markowitz_returns,
     risk_parity_returns,
 )
-from data.universe import CRYPTO_PERIOD, PERIOD_A, PERIOD_B
-from scripts.evaluate import evaluate_agent, load_close
+from data.download import load_close
+from data.universe import PERIODS
+from scripts.evaluate import evaluate_agent
 
-PERIODS = {"A": PERIOD_A, "B": PERIOD_B, "crypto": CRYPTO_PERIOD}
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
 
 
